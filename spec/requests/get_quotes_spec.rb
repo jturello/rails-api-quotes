@@ -1,8 +1,7 @@
-require 'rails_helper'
-
+require 'rails_helper' 
 describe "returns all quotes", :type => :request do
-  let!(:size) {1} 
-  # let!(:quotes) {create_list(:quote, size)}
+  let!(:size) {4} 
+  let!(:quotes) {create_list(:quote, size)}
 
   before { get '/quotes' }
 
