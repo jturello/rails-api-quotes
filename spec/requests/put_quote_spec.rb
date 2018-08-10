@@ -9,9 +9,12 @@ describe "put quote request" do
     put "/quotes/#{id}", params: { author: 'updated author', content: 'updated content' }
   end
 
-  it 'returns updated author' do
+  it 'returns the updated author' do
     expect(JSON.parse(response.body)['author']).to eq('updated author')
   end
 
+  it 'returns the updated content' do
+    expect(JSON.parse(response.body)['content']).to eq('updated content')
+  end
 end
 
