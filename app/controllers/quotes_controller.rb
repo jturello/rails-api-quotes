@@ -10,21 +10,21 @@ class QuotesController < ApplicationController
     json_response(@quote)
   end
 
-  def create 
-    @quote = Quote.create(quote_params)
+  def create
+    @quote = Quote.create!(quote_params)
     json_response(@quote)
   end
 
   def update
     @quote = Quote.find(params[:id])
-    @quote.update(quote_params) 
+    @quote.update!(quote_params) 
     json_response(@quote)
   end
 
   def destroy
     @quote = Quote.find(params[:id])
     @quote.destroy
-    json_response(@quote)
+    json_response(@quote, :deleted)
   end
 
 

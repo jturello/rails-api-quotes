@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'delete quote request' do
 
-  let!(:size) {2} 
+  let!(:size) {3} 
   let!(:quotes) {create_list(:quote, size)}
   let!(:id) { quotes[0].id }
   
@@ -11,4 +11,5 @@ describe 'delete quote request' do
     get '/quotes'
     expect(JSON.parse(response.body).size).to eq(size - 1)
   end
+
 end
