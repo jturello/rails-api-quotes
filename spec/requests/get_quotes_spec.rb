@@ -14,4 +14,7 @@ describe "get quotes", :type => :request do
     expect(response).to have_http_status(:success)
   end
 
+  it "returns a response with content type 'application/json'" do
+    expect(response.content_type).to eq("application/json")
+  end
 end
