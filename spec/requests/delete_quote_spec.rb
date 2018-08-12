@@ -7,8 +7,8 @@ describe 'delete quote request' do
   let!(:id) { quotes[0].id }
   
   it 'deletes one quote' do
-    delete "/quotes/#{id}"
-    get '/quotes'
+    delete "/api/v1/quotes/#{id}"
+    get '/api/v1/quotes'
     expect(JSON.parse(response.body).size).to eq(size - 1)
   end
 

@@ -7,7 +7,7 @@ describe "put request to update a quote" do
 
   context 'with valid input' do
     before do
-      put "/quotes/#{id}", params: { author: 'updated author', content: 'updated content' }
+      put "/api/v1/quotes/#{id}", params: { author: 'updated author', content: 'updated content' }
     end
 
     it 'returns the updated author' do
@@ -26,7 +26,7 @@ describe "put request to update a quote" do
   context 'with invalid input' do
     context 'when author is blank' do
       before do
-	put "/quotes/#{id}", params: { author: '', content: 'updated content' }
+	put "/api/v1/quotes/#{id}", params: { author: '', content: 'updated content' }
       end
 
       it 'returns RecordInvalid error when input Author is blank' do
@@ -40,7 +40,7 @@ describe "put request to update a quote" do
 
     context 'when content is blank' do
       before do
-	put "/quotes/#{id}", params: { author: 'Italo Calvino', content: '' }
+	put "/api/v1/quotes/#{id}", params: { author: 'Italo Calvino', content: '' }
       end
     
       it 'returns RecordInvalid error when input Content is blank' do

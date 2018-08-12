@@ -4,7 +4,7 @@ describe "post request to add quote", type: :request do
   
   context 'with valid input' do
     before do
-      post '/quotes', params: { author: 'test author', content: 'test content' }
+      post '/api/v1/quotes', params: { author: 'test author', content: 'test content' }
     end
     
     it "returns the added author name" do
@@ -23,7 +23,7 @@ describe "post request to add quote", type: :request do
   context 'with invalid input' do
     context 'when Author is blank' do
       before do
-        post '/quotes', params: { author: '', content: 'test content' }
+        post '/api/v1/quotes', params: { author: '', content: 'test content' }
       end
       
       it 'returns RecordInvalid error when input Author is blank' do
@@ -37,7 +37,7 @@ describe "post request to add quote", type: :request do
     
     context 'when Content is blank' do
       before do
-        post '/quotes', params: { author: 'test author', content: '' }
+        post '/api/v1/quotes', params: { author: 'test author', content: '' }
       end
     
       it 'returns RecordInvalid error when input Content is blank' do

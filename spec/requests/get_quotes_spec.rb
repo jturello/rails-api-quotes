@@ -4,7 +4,7 @@ describe "get quotes", :type => :request do
   let!(:size) {2} 
   let!(:quotes) {create_list(:quote, size)}
 
-  before { get '/quotes' }
+  before { get '/api/v1/quotes' }
 
   it 'returns all quotes' do
     expect(JSON.parse(response.body).size).to eq(size)
