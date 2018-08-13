@@ -1,6 +1,6 @@
 require 'rails_helper' 
 
-describe "post request to add quote", type: :request do
+describe "post/add request", type: :request do
   
   context 'with valid input' do
     before do
@@ -8,11 +8,11 @@ describe "post request to add quote", type: :request do
     end
     
     it "returns the added author name" do
-      expect(JSON.parse(response.body)['author']).to eq('test author') 
+      expect(json_response[:author]).to eq('test author') 
     end
 
     it 'returns the added content' do
-      expect(JSON.parse(response.body)['content']).to eq('test content')
+      expect(json_response[:content]).to eq('test content')
     end
 
     it 'returns status code 200 - :success' do
@@ -21,13 +21,13 @@ describe "post request to add quote", type: :request do
   end
 
   context 'with invalid input' do
-    context 'when Author is blank' do
+    context 'when author is blank' do
       before do
         post '/api/v1/quotes', params: { author: '', content: 'test content' }
       end
       
       it 'returns RecordInvalid error' do
-	expect(JSON.parse(response.body)['message']).to include("Validation failed: Author can't be blank")
+	expect(json_response[:message]).to include("Validation failed: Author can't be blank")
       end    
       
       it 'returns status 422 - :unprocessable_entity' do
@@ -35,13 +35,13 @@ describe "post request to add quote", type: :request do
       end
     end
     
-    context 'when Content is blank' do
+    context 'when content is blank' do
       before do
         post '/api/v1/quotes', params: { author: 'test author', content: '' }
       end
     
       it 'returns RecordInvalid error' do
-	expect(JSON.parse(response.body)['message']).to include("Validation failed: Content can't be blank")
+	expect(json_response[:message]).to include("Validation failed: Content can't be blank")
       end
 
       it 'returns status 422 - :unprocessable_entity' do

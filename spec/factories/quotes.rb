@@ -1,7 +1,7 @@
 
 FactoryBot.define do
   factory :quote do
-    content "Sample quote"
+    content "sample quote"
     author  "sample author"
   end
 end

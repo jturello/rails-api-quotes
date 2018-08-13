@@ -1,13 +1,13 @@
 require 'rails_helper' 
 
-describe "get quotes", :type => :request do
+describe "get quotes request", :type => :request do
   let!(:size) {2} 
   let!(:quotes) {create_list(:quote, size)}
   let!(:valid_id) {quotes.first.id}
   let!(:invalid_id) {quotes.first.id + quotes.last.id}
 
-  context 'when requesting all quotes' do
-    context 'with a valid request' do
+  context 'when getting all quotes' do
+    context 'with valid input' do
       before { get '/api/v1/quotes' }
 
       it 'returns all quotes' do
@@ -18,14 +18,14 @@ describe "get quotes", :type => :request do
          expect(response).to have_http_status(:success)
       end
 
-      it "returns a response with content type 'application/json'" do
+      it "returns response with content type 'application/json'" do
         expect(response.content_type).to eq("application/json")
       end
     end
   end
 
-  context 'when requesting one quote' do
-    context 'with a valid request' do
+  context 'when getting one quote' do
+    context 'with valid input' do
       before do
 	get "/api/v1/quotes/#{valid_id}"
       end
@@ -39,7 +39,7 @@ describe "get quotes", :type => :request do
       end
     end
 
-    context 'with an invalid request' do
+    context 'with invalid input' do
       context 'when requested id does not exist' do
 	before do
 	  get "/api/v1/quotes/#{invalid_id}"

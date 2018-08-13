@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'simplecov'
+require './spec/support/json_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -24,6 +25,7 @@ RSpec.configure do |config|
 
   # config for FactoryBot factories
   config.include FactoryBot::Syntax::Methods
+  config.include JsonHelper
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -37,7 +39,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
 end
 
 Shoulda::Matchers.configure do |config|

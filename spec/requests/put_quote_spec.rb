@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "put (update) request" do
+describe "put/update request" do
 
   let!(:quote) { create(:quote) }
   let!(:id) { quote.id }
@@ -11,11 +11,11 @@ describe "put (update) request" do
     end
 
     it 'returns the updated author' do
-      expect(JSON.parse(response.body)['author']).to eq('updated author')
+      expect(json_response[:author]).to eq('updated author')
     end
 
     it 'returns the updated content' do
-      expect(JSON.parse(response.body)['content']).to eq('updated content')
+      expect(json_response[:content]).to eq('updated content')
     end
 
     it 'returns status code 200' do
@@ -29,8 +29,8 @@ describe "put (update) request" do
 	put "/api/v1/quotes/#{id}", params: { author: '', content: 'updated content' }
       end
 
-      it 'returns RecordInvalid error when input Author is blank' do
-	expect(JSON.parse(response.body)['message']).to include("Validation failed: Author can't be blank")
+      it 'returns RecordInvalid error' do
+	expect(json_response[:message]).to include("Validation failed: Author can't be blank")
       end    
 
       it 'returns status 422 - :unprocessable_entity' do
@@ -43,8 +43,8 @@ describe "put (update) request" do
 	put "/api/v1/quotes/#{id}", params: { author: 'Italo Calvino', content: '' }
       end
     
-      it 'returns RecordInvalid error when input Content is blank' do
-	expect(JSON.parse(response.body)['message']).to include("Validation failed: Content can't be blank")
+      it 'returns RecordInvalid error' do
+	expect(json_response[:message]).to include("Validation failed: Content can't be blank")
       end
 
       it 'returns status 422 - :unprocessable_entity' do
@@ -53,15 +53,16 @@ describe "put (update) request" do
     end
     
     context "when quote id not in database" do
-      let!(:author_in_request) { 'updated author' }
+      let!(:request_author) { 'updated author' }
 
       before do
-	put "/api/v1/quotes/#{id+1}", params: { author: author_in_request, content: 'updated content' }
+	put "/api/v1/quotes/#{id+1}", params: { author: request_author, content: 'updated content' }
       end
 
       it 'does not update/save request' do
 	get "/api/v1/quotes"
-	expect(JSON.parse(response.body).first['author']).not_to eq(author_in_request)
+	expect(json_response.size).to eq(1)
+	expect(json_response.first[:author]).not_to eq(request_author)
       end
 
       it 'returns status 404 - :not_found' do
@@ -69,7 +70,7 @@ describe "put (update) request" do
       end
 
       it 'returns RecordNotFound error' do
-	expect(JSON.parse(response.body)['message']).to include("Couldn't find Quote with 'id'=#{id+1}")
+	expect(json_response[:message]).to include("Couldn't find Quote with 'id'=#{id+1}")
       end     
     end
   end
