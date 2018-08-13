@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "put request to update a quote" do
+describe "put (update) request" do
 
   let!(:quote) { create(:quote) }
   let!(:id) { quote.id }
@@ -50,6 +50,27 @@ describe "put request to update a quote" do
       it 'returns status 422 - :unprocessable_entity' do
         expect(response).to have_http_status(:unprocessable_entity)
       end
+    end
+    
+    context "when quote id not in database" do
+      let!(:author_in_request) { 'updated author' }
+
+      before do
+	put "/api/v1/quotes/#{id+1}", params: { author: author_in_request, content: 'updated content' }
+      end
+
+      it 'does not update/save request' do
+	get "/api/v1/quotes"
+	expect(JSON.parse(response.body).first['author']).not_to eq(author_in_request)
+      end
+
+      it 'returns status 404 - :not_found' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns RecordNotFound error' do
+	expect(JSON.parse(response.body)['message']).to include("Couldn't find Quote with 'id'=#{id+1}")
+      end     
     end
   end
 end

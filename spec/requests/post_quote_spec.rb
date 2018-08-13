@@ -26,7 +26,7 @@ describe "post request to add quote", type: :request do
         post '/api/v1/quotes', params: { author: '', content: 'test content' }
       end
       
-      it 'returns RecordInvalid error when input Author is blank' do
+      it 'returns RecordInvalid error' do
 	expect(JSON.parse(response.body)['message']).to include("Validation failed: Author can't be blank")
       end    
       
@@ -40,7 +40,7 @@ describe "post request to add quote", type: :request do
         post '/api/v1/quotes', params: { author: 'test author', content: '' }
       end
     
-      it 'returns RecordInvalid error when input Content is blank' do
+      it 'returns RecordInvalid error' do
 	expect(JSON.parse(response.body)['message']).to include("Validation failed: Content can't be blank")
       end
 
