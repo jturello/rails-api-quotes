@@ -1,6 +1,6 @@
 module JsonHelper
 
-  def json_response
-    JSON.parse(response.body, symbolize_names: true) 
+  def json
+    JSON.parse(response.body) 
   end 
 end

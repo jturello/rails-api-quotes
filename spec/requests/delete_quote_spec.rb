@@ -11,7 +11,7 @@ describe 'delete quote request' do
     it 'deletes a quote' do
       delete "/api/v1/quotes/#{valid_id}"
       get '/api/v1/quotes'
-      expect(json_response.size).to eq(size - 1)
+      expect(json.size).to eq(size - 1)
     end
   end
 

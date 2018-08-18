@@ -8,11 +8,11 @@ describe "post/add request", type: :request do
     end
     
     it "returns the added author name" do
-      expect(json_response[:author]).to eq('test author') 
+      expect(json['author']).to eq('test author')
     end
 
     it 'returns the added content' do
-      expect(json_response[:content]).to eq('test content')
+      expect(json['content']).to eq('test content')
     end
 
     it 'returns status code 200 - :success' do
@@ -27,7 +27,7 @@ describe "post/add request", type: :request do
       end
       
       it 'returns RecordInvalid error' do
-	expect(json_response[:message]).to include("Validation failed: Author can't be blank")
+	expect(json['message']).to include("Validation failed: Author can't be blank")
       end    
       
       it 'returns status 422 - :unprocessable_entity' do
@@ -41,7 +41,7 @@ describe "post/add request", type: :request do
       end
     
       it 'returns RecordInvalid error' do
-	expect(json_response[:message]).to include("Validation failed: Content can't be blank")
+	expect(json['message']).to include("Validation failed: Content can't be blank")
       end
 
       it 'returns status 422 - :unprocessable_entity' do

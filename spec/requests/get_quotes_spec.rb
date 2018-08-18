@@ -11,7 +11,7 @@ describe "get quotes request", :type => :request do
       before { get '/api/v1/quotes' }
 
       it 'returns all quotes' do
-        expect(JSON.parse(response.body).size).to eq(size)
+        expect(json.size).to eq(size)
       end
 
       it 'returns status code 200 - :success' do
@@ -31,7 +31,7 @@ describe "get quotes request", :type => :request do
       end
 
       it 'returns the correct quote' do
-        expect(JSON.parse(response.body)['id']).to eq(valid_id) 
+        expect(json['id']).to eq(valid_id)
       end
 
       it 'returns status 200 - :success' do
@@ -50,7 +50,7 @@ describe "get quotes request", :type => :request do
 	end
 	
 	it 'returns RecordNotFound error' do
-	  expect(JSON.parse(response.body)['message']).to include("Couldn't find Quote with 'id'=#{invalid_id}")
+	  expect(json['message']).to include("Couldn't find Quote with 'id'=#{invalid_id}")
 	end     
       end
     end
